@@ -13,7 +13,7 @@ jobs:
 
       - name: Extract Jarvis project
         run: |
-          Jarvis_Suhas_Edition_2.0_Fixed_JVM17.zip
+          unzip -q Jarvis_Suhas_Edition_2.0_Fixed_JVM17.zip
           echo "Extracted project:"
           find . -maxdepth 3 -type d | head -50
 
