@@ -11,18 +11,23 @@ jobs:
       - name: Download project
         uses: actions/checkout@v4
 
-      - - name: Extract Jarvis project
-  run: |
-    unzip -q Jarvis_Suhas_Edition_2.2_Enhanced_HUD.zip
+      - name: Extract Jarvis project
+        run: |
+          unzip -q Jarvis_Suhas_Edition_2.2_Enhanced_HUD.zip
 
-    if [ -d "jarvis22/Jarvis_Suhas_Project" ]; then
-      mv jarvis22/Jarvis_Suhas_Project ./Jarvis_Suhas_Project
-    fi
+          PROJECT_DIR=$(find . -type d -name "Jarvis_Suhas_Project" -print -quit)
 
-    echo "Extracted project:"
-    find Jarvis_Suhas_Project -maxdepth 3 -type d | head -50
+          if [ -z "$PROJECT_DIR" ]; then
+            echo "ERROR: Jarvis_Suhas_Project not found"
+            exit 1
+          fi
 
-    test -d Jarvis_Suhas_Project/android
+          if [ "$PROJECT_DIR" != "./Jarvis_Suhas_Project" ]; then
+            mv "$PROJECT_DIR" ./Jarvis_Suhas_Project
+          fi
+
+          test -d Jarvis_Suhas_Project/android
+          echo "Jarvis project found successfully."
 
       - name: Setup Java
         uses: actions/setup-java@v4
